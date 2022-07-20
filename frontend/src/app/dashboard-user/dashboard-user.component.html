@@ -1,0 +1,134 @@
+<app-header></app-header>
+<!-- modal for uploading photo -->
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Upload Photo Here</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <form>
+            <input
+              type="file"
+              #avatar
+              class="form-control"
+              id="inputGroupFile02"
+              accept="image/*"
+              (change)="onChange($event)"
+            />
+            <p class="text-danger">
+              Please select a file upto 1mb size *format- .jpg, .jpeg and .png
+            </p>
+            <button
+              [disabled]="upload"
+              type="submit"
+              class="btn btn-primary mt-2"
+              for="inputGroupFile02"
+              (click)="onUpload()"
+            >
+              Upload
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div>
+    <img
+      *ngIf="!profilepic"
+      src="../../assets/images/austin-distel-4r72LPFh4Ik-unsplash.jpg"
+      alt="profile pic"
+      class="photo d-block mx-auto my-2 rounded-circle"
+      (click)="openPopup()"
+    />
+    <img
+      *ngIf="profilepic"
+      [src]="url"
+      alt="profile pic"
+      class="photo d-block mx-auto my-2 rounded-circle"
+      (click)="openPopup()"
+    />
+  </div>
+</div>
+<!-- welcome text and Instruction -->
+<div class="mx-auto">
+  <h4 class="text-center mt-2 text-primary">
+    Hi !, {{ user.name.toUpperCase() }}
+  </h4>
+  <h6 class="text-center">
+    Welcome to the app!, We are very happy to join you in!
+  </h6>
+  <h6 class="text-center">
+    Meanwhile, You can check our Recommended Books and start learning...
+  </h6>
+</div>
+<!-- favourate and recommendation area -->
+<div class="container">
+  <div class="d-md-flex justify-content-around">
+    <div class="col-md-5 border border-1 border-primary rounded my-5">
+      <h3 class="text-center">Recommended Books</h3>
+      <ol class="list-group list-group-numbered">
+        <ng-container *ngFor="let book of recommended">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ book.title.toUpperCase() }}</div>
+              {{ book.author.toUpperCase() }}
+            </div>
+          </li>
+          <button
+            class="btn btn-outline-primary"
+            (click)="getBookDetail(book._id)"
+          >
+            See details
+          </button>
+        </ng-container>
+      </ol>
+    </div>
+    <div class="col-md-5 border border-1 border-primary rounded my-5">
+      <h3 class="text-center">Favourite Books</h3>
+      <ng-container *ngIf="favourite">
+        <ng-container *ngFor="let book of favourite">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ book.title.toUpperCase() }}</div>
+              {{ book.author.toUpperCase() }}
+            </div>
+          </li>
+          <button
+            class="btn btn-outline-primary"
+            (click)="getBookDetail(book._id)"
+          >
+            See details
+          </button>
+          <button
+            class="ms-5 btn btn-outline-danger"
+            (click)="removeFavourite(book._id)"
+          >
+            Remove
+          </button>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="favourite.length === 0">
+        <h3 class="mt-5">Add to favourite book to see here...</h3>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

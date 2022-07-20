@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold">Book Store</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <div class="dropdown">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span class="fw-bold">User</span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+                <li>
+                  <a class="dropdown-item" (click)="logoutAll()">Logout All </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="openPopup()"
+                    >Change password</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="deleteUser()"
+                    >Delete Account</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active fw-bold" routerLink="/dashboard/user">
+              Dashboard</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active fw-bold" routerLink="/search"
+              >Search Books</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Change Password</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+            <input
+              type="text"
+              formControlName="password"
+              class="form-control"
+            />
+            <p
+              class="text-danger"
+              *ngIf="
+                !passwordForm.get('password')?.valid &&
+                passwordForm.get('password')?.touched
+              "
+            >
+              Password must be 8 character or more
+            </p>
+            <button type="submit" class="btn btn-primary mt-2">
+              Change Password
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

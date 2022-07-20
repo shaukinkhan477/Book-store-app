@@ -1,0 +1,81 @@
+<app-header></app-header>
+<ng-container *ngIf="book">
+  <div class="container">
+    <div class="card">
+      <img
+        loading="lazy"
+        [src]="imgUrl"
+        class="card-img-top img-fluid height"
+        alt="book image"
+      />
+      <div class="card-body">
+        <h5 class="card-title">Book Title : {{ book.title.toUpperCase() }}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Book Author: {{ book.author.toUpperCase() }}
+        </li>
+        <li class="list-group-item">
+          Category: {{ book.category.toUpperCase() }}
+        </li>
+        <li class="list-group-item">
+          Language: {{ book.language.toUpperCase() }}
+        </li>
+        <li class="list-group-item">Total Pages: {{ book.pages }}</li>
+        <li class="list-group-item">Year of Origin: {{ book.year }}</li>
+        <li class="list-group-item">
+          Origin Place/Country: {{ book.country.toUpperCase() }}
+        </li>
+      </ul>
+      <div class="card-body">
+        <a [href]="book.link" class="card-link">Go to book wikipedia page</a>
+        <button
+          class="card-link btn btn-outline-primary"
+          (click)="addFavourite(book._id)"
+        >
+          Add to Favourites
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="!book">
+  <h3>Please Select a book to see the details...</h3>
+</ng-container>
+<div class="container">
+  <h3>Comments</h3>
+  <div class="d-md-flex my-2">
+    <textarea cols="30" rows="5" [(ngModel)]="commentToSend"></textarea>
+    <button class="btn btn-primary mx-2" type="submit" (click)="addComment()">
+      Add Comment
+    </button>
+  </div>
+
+  <ng-container *ngIf="comment.length === 0">
+    <h3 class="text-center text-warning">No comments to show...</h3>
+  </ng-container>
+  <ng-container *ngIf="comment">
+    <ul class="list-group list-group-numbered my-3">
+      <ng-container *ngFor="let onecomment of comment">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">{{ onecomment.name | uppercase }}</div>
+            {{ onecomment.comment }}
+          </div>
+          <button
+            class="btn btn-danger"
+            [ngStyle]="{
+              display: onecomment.userId === user._id ? 'block' : 'none'
+            }"
+            (click)="deleteComment(onecomment._id)"
+          >
+            delete
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+</div>
+<app-footer></app-footer>

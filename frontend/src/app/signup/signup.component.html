@@ -1,0 +1,148 @@
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Something went wrong!!!</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Looks like we are facing some hiccups! Meanwhile You can check your
+          Network.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="example row b-gradient">
+  <div class="col-md-3 mx-auto mb-2 bg-light content shadow-lg rounded">
+    <h3 class="text-center fw-bold m-2">Sign up</h3>
+    <p class="text-center text-muted font-sm">
+      Already have an account ! <a routerLink="/">Login here </a>
+    </p>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="m-2">
+      <div class="mt-2">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+        />
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            !signupForm.get('name')?.valid && signupForm.get('name')?.touched
+          "
+        >
+          Please enter Name with minimum length 5!
+        </p>
+      </div>
+      <div class="">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          formControlName="email"
+        />
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            !signupForm.get('email')?.valid && signupForm.get('email')?.touched
+          "
+        >
+          Please enter email correctly !
+        </p>
+
+        <div id="emailHelp" class="form-text">
+          We'll never share your email with anyone else.
+        </div>
+      </div>
+      <div class="">
+        <label for="age" class="form-label">Age</label>
+        <input
+          type="number"
+          class="form-control"
+          id="age"
+          aria-describedby="ageHelp"
+          formControlName="age"
+        />
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            !signupForm.get('age')?.valid && signupForm.get('age')?.touched
+          "
+        >
+          Please enter age correctly!
+        </p>
+
+        <div id="ageHelp" class="form-text font-sm">
+          Your age must be 10 or above.
+        </div>
+      </div>
+      <div class="">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          formControlName="password"
+        />
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            !signupForm.get('password')?.valid &&
+            signupForm.get('password')?.touched
+          "
+        >
+          Please enter password with minimum length 8 !
+        </p>
+      </div>
+      <div class="">
+        <label for="Confirm" class="form-label">Confirm Password</label>
+        <input
+          [ngClass]="{
+            passwordMismatch:
+              this.signupForm.hasError('passwordMismatch') &&
+              this.signupForm.get('cpassword')?.touched
+          }"
+          type="text"
+          class="form-control"
+          id="Confirm"
+          formControlName="cpassword"
+        />
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            signupForm.get('cpassword')?.touched &&
+            signupForm?.hasError('passwordMismatch')
+          "
+        >
+          Password does not match!
+        </p>
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            signupForm.get('cpassword')?.touched &&
+            signupForm.get('cpassword')?.hasError('required')
+          "
+        >
+          Please confirm the Password !
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+  </div>
+</div>

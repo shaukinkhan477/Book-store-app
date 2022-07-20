@@ -1,0 +1,74 @@
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Something went wrong!!!</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Looks like we are facing some hiccups! Meanwhile You can check your
+          Network.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="example row b-gradient">
+  <div class="col-md-3 mx-auto mb-2 bg-light content shadow-lg rounded">
+    <h3 class="text-center fw-bold m-2">Login</h3>
+    <p class="text-center text-muted font-sm">
+      New to our app ! <a routerLink="/signup">Signup here </a>
+    </p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="m-2">
+      <div class="mt-2">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          formControlName="email"
+        />
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            !loginForm.get('email')?.valid && loginForm.get('email')?.touched
+          "
+        >
+          Please enter email correctly !
+        </p>
+      </div>
+
+      <div class="">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          formControlName="password"
+        />
+        <p
+          class="text-danger font-sm"
+          *ngIf="
+            !loginForm.get('password')?.valid &&
+            loginForm.get('password')?.touched
+          "
+        >
+          Please enter password with minimum length 8 !
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+  </div>
+</div>
